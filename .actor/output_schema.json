@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "CIPA Wiretap, VPPA Video Pixel & HIPAA Tracker Audit Output",
+  "description": "Structured per-site CIPA §§ 631/632 wiretap chat & session-replay signals, VPPA video + ad-pixel co-presence, HIPAA / WA MHMDA sensitive intake pixel leaks, GPC (/.well-known/gpc.json) & CCPA opt-out verification, B2B cold outreach hooks, and HTML/JS consent-gate remediation packs stored in the default Dataset.",
+  "properties": {
+    "auditResults": {
+      "type": "string",
+      "title": "CIPA, VPPA, HIPAA & GPC Pixel Compliance Dataset",
+      "description": "Per-site complianceScore, riskTier, detectedCmp, ungatedSessionReplayVendors, ungatedChatWidgetVendors, vppaRiskFound, sensitiveFormPixelLeakFound, gpcSupportDeclared, coldOutreachHook, and remediationPack.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    }
+  }
+}

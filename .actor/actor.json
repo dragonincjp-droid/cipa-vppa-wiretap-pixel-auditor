@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "cipa-vppa-wiretap-pixel-auditor",
+  "title": "CIPA Wiretap, VPPA Video Pixel & HIPAA Tracker Auditor",
+  "description": "Bulk-audit sites via fast HTTP for CIPA §§ 631/632 chat & session-replay wiretap risk, VPPA video + ad-pixel leaks, HIPAA/MHMDA intake trackers, and GPC/CCPA opt-outs with HTML/JS consent-gate fixes & B2B hooks.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024,
+  "usesStandbyMode": true,
+  "webServerMcpPath": "/mcp",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "title": "CIPA Wiretap, VPPA Video Pixel & HIPAA Tracker Auditor Input",
+  "description": "Audit e-commerce stores, healthcare/wellness clinics, media sites, and SaaS apps via fast zero-browser HTTP for CIPA §§ 631 & 632 live-chat & session-replay wiretap exposure, VPPA 18 U.S.C. § 2710 video + ad-pixel co-presence, HIPAA / WA MHMDA sensitive intake form trackers, and CCPA/CPRA Global Privacy Control (GPC) & opt-out links.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "urls": {
+      "title": "Target Website URLs / Bare Domains",
+      "type": "array",
+      "description": "List of store, clinic, media, or SaaS URLs or bare domains to audit (supports full URLs like \"https://clinic.example.com\", bare domains like \"shop.example.com\", or RequestList objects like [{\"url\": \"https://shop.example.com\"}]).",
+      "editor": "stringList",
+      "prefill": [
+        "https://example.com"
+      ]
+    },
+    "url": {
+      "title": "Single URL or Domain (Optional Shorthand)",
+      "type": "string",
+      "description": "Optional single URL/domain convenience field for REST webhooks, Clay HTTP columns, or MCP calls.",
+      "editor": "textfield"
+    },
+    "datasetId": {
+      "title": "Upstream Apify Dataset ID (Optional Chaining)",
+      "type": "string",
+      "description": "Optional Apify Dataset ID (e.g. from Google Maps Healthcare Scraper, Shopify Store Scraper, or Lead Finder) to auto-import URLs and deduplicate with urls.",
+      "editor": "textfield"
+    },
+    "datasetUrlField": {
+      "title": "Dataset URL Field Override (Optional)",
+      "type": "string",
+      "description": "Optional column name to extract URLs from datasetId items. When omitted, auto-detects website, url, domain, shopUrl, storeUrl, clinicUrl, practiceUrl, or appUrl.",
+      "editor": "textfield"
+    },
+    "maxLegalPagesPerDomain": {
+      "title": "Max Internal Intake/Video/Privacy Subpages per Site",
+      "type": "integer",
+      "description": "Maximum number of discovered same-origin internal pages (/appointment, /book, /intake, /schedule, /videos, /watch, /demo, /privacy, /contact) fetched per site in addition to the homepage (0-5).",
+      "default": 3,
+      "minimum": 0,
+      "maximum": 5,
+      "editor": "number"
+    },
+    "includeRemediationPack": {
+      "title": "Generate CIPA/VPPA Consent-Gate + Pre-Chat + GPC HTML/JS Pack",
+      "type": "boolean",
+      "description": "Generates ready-to-paste Prior-Consent Script Gate Wrapper + Pre-Chat CIPA Recording Disclosure Widget + /.well-known/gpc.json + CCPA \"Your Privacy Choices\" HTML/JS snippets when compliance findings exist (+$0.01/site).",
+      "default": true,
+      "editor": "checkbox"
+    },
+    "checkWiretapChatAndReplay": {
+      "title": "Check CIPA §§ 631/632 Session-Replay & Third-Party Chat Wiretap Risk",
+      "type": "boolean",
+      "description": "Detects session-replay SDKs (FullStory, Hotjar, Clarity, LogRocket, Mouseflow, etc.) and third-party live/AI chat widgets (Intercom, Drift, Zendesk, Gorgias, Tidio, etc.), verifying CMP prior-consent script gating and pre-chat recording disclosures.",
+      "default": true,
+      "editor": "checkbox"
+    },
+    "checkVppaVideoPixels": {
+      "title": "Check VPPA (18 U.S.C. § 2710) Video + Ad-Pixel Co-Presence",
+      "type": "boolean",
+      "description": "Detects embedded video players (YouTube, Vimeo, Wistia, JW Player, Mux, Vidyard, Brightcove, <video>) firing alongside ungated ad-tech identity pixels (Meta, TikTok, LinkedIn, Snap, Pinterest, Reddit, X, Criteo, Google Ads).",
+      "default": true,
+      "editor": "checkbox"
+    },
+    "checkSensitiveIntakePixels": {
+      "title": "Check Healthcare / Sensitive Intake Form Pixel Leaks (HIPAA & WA MHMDA)",
+      "type": "boolean",
+      "description": "Inspects /appointment, /book, /intake, /patient, /schedule, /telehealth, and /consultation forms collecting health/appointment inputs for ungated ad pixels and session-replay scripts.",
+      "default": true,
+      "editor": "checkbox"
+    },
+    "checkGpcAndOptOut": {
+      "title": "Check Global Privacy Control (/.well-known/gpc.json) & CCPA Opt-Out Link",
+      "type": "boolean",
+      "description": "Probes /.well-known/gpc.json and checks for \"Do Not Sell or Share My Personal Information\" / \"Your Privacy Choices\" opt-out links when ad-tech trackers are active.",
+      "default": true,
+      "editor": "checkbox"
+    },
+    "respectRobotsTxt": {
+      "title": "Respect robots.txt",
+      "type": "boolean",
+      "description": "Checks domain /robots.txt rules before scanning and skips disallowed paths.",
+      "default": true,
+      "editor": "checkbox"
+    },
+    "maxUrls": {
+      "title": "Max Sites Safety Cap",
+      "type": "integer",
+      "description": "Hard ceiling on the total number of sites audited in a single run to prevent accidental budget overruns.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 5000,
+      "editor": "number"
+    },
+    "maxConcurrency": {
+      "title": "Max Concurrent HTTP Workers",
+      "type": "integer",
+      "description": "Maximum parallel HTTP site workers (1-20).",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 20,
+      "editor": "number"
+    },
+    "domainDelayMs": {
+      "title": "Per-Domain Polite Delay (ms)",
+      "type": "integer",
+      "description": "Minimum polite delay in milliseconds between consecutive HTTP requests to the same hostname.",
+      "default": 300,
+      "minimum": 0,
+      "maximum": 30000,
+      "editor": "number"
+    },
+    "requestTimeoutMs": {
+      "title": "HTTP Request Timeout (ms)",
+      "type": "integer",
+      "description": "Strict timeout per HTTP request in milliseconds (default 12000ms).",
+      "default": 12000,
+      "minimum": 2000,
+      "maximum": 60000,
+      "editor": "number"
+    }
+  }
+}

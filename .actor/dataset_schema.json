@@ -1,0 +1,325 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "type": "object",
+    "required": [
+      "url",
+      "domain",
+      "auditedAt",
+      "status",
+      "complianceScore",
+      "riskTier",
+      "disclaimer"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "Original input URL or bare domain requested for auditing."
+      },
+      "normalizedInputUrl": {
+        "type": "string",
+        "description": "Normalized HTTP/HTTPS URL derived from input."
+      },
+      "finalUrl": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Resolved homepage URL after validated HTTP redirects."
+      },
+      "domain": {
+        "type": "string",
+        "description": "Target site hostname."
+      },
+      "auditedAt": {
+        "type": "string",
+        "description": "ISO 8601 UTC audit timestamp."
+      },
+      "status": {
+        "type": "string",
+        "description": "Audit execution status (audited, blocked_ssrf, blocked_robots, error)."
+      },
+      "httpStatus": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "description": "Homepage HTTP response status code."
+      },
+      "pageTitle": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "HTML document <title> of the homepage."
+      },
+      "detectedLanguage": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Detected HTML language code (e.g. en)."
+      },
+      "sitePlatform": {
+        "type": "string",
+        "description": "Detected storefront or web platform (shopify, woocommerce, wordpress, webflow, wix, squarespace, healthcare-web, saas-web, custom)."
+      },
+      "siteVertical": {
+        "type": "string",
+        "description": "Classified site vertical (healthcare_or_wellness, ecommerce_or_dtc, media_or_video, b2b_or_saas, general_business)."
+      },
+      "detectedCmp": {
+        "type": "string",
+        "description": "Detected Consent Management Platform (onetrust, usercentrics, cookiebot, osano, termly, trustarc, ketch, securiti, didomi, iubenda, complianz, custom-cmp, none)."
+      },
+      "consentModeV2Detected": {
+        "type": "boolean",
+        "description": "Whether Google Consent Mode default-denied gating (gtag('consent', 'default', ... 'denied')) was detected."
+      },
+      "loadTimeMs": {
+        "type": "number",
+        "description": "Total site audit duration in milliseconds."
+      },
+      "pagesFetchedCount": {
+        "type": "integer",
+        "description": "Total HTML pages fetched for this site (homepage + discovered internal intake/video/privacy subpages)."
+      },
+      "pagesFetched": {
+        "type": "array",
+        "description": "URLs of all HTML pages inspected on this site."
+      },
+      "errorMessage": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Diagnostic error or security block reason when status is not audited."
+      },
+      "complianceScore": {
+        "type": "number",
+        "description": "Deterministic 0-100 CIPA, VPPA, HIPAA/MHMDA & GPC technical compliance score (100 = no heuristic issues detected)."
+      },
+      "riskTier": {
+        "type": "string",
+        "description": "Heuristic compliance risk tier: CRITICAL, HIGH, MODERATE, or LOW."
+      },
+      "sessionReplayVendors": {
+        "type": "array",
+        "description": "All detected session-replay vendors (fullstory, hotjar, microsoft-clarity, logrocket, mouseflow, lucky-orange, crazy-egg, contentsquare, smartlook, posthog-replay)."
+      },
+      "ungatedSessionReplayVendors": {
+        "type": "array",
+        "description": "Session-replay vendors loading eagerly without prior-consent script gating."
+      },
+      "chatWidgetVendors": {
+        "type": "array",
+        "description": "All detected third-party live-chat & AI chatbot vendors (intercom, drift, zendesk-chat, gorgias-chat, tidio, livechat, hubspot-chat, crisp, ada-chat, qualified)."
+      },
+      "ungatedChatWidgetVendors": {
+        "type": "array",
+        "description": "Third-party chat vendors booting eagerly without prior-consent script gating."
+      },
+      "preChatRecordingDisclosureFound": {
+        "type": "boolean",
+        "description": "Whether explicit real-time chat recording / third-party chat processing consent or notice was found."
+      },
+      "wiretapRiskFound": {
+        "type": "boolean",
+        "description": "Whether CIPA §§ 631/632 / ECPA session-replay or third-party chat wiretap risk was detected."
+      },
+      "wiretapChatAndReplayCheck": {
+        "type": "object",
+        "description": "Detailed CIPA §§ 631/632 session-replay, third-party chat, CMP gating, and recording-disclosure analysis."
+      },
+      "embeddedVideoProviders": {
+        "type": "array",
+        "description": "Detected embedded video providers (youtube, youtube-nocookie, vimeo, wistia, jwplayer, mux, vidyard, brightcove, html5-video)."
+      },
+      "adPixelVendors": {
+        "type": "array",
+        "description": "All detected ad-tech identity/conversion pixels (meta-pixel, tiktok-pixel, google-ads, linkedin-insight, pinterest-tag, snap-pixel, reddit-pixel, x-pixel, criteo)."
+      },
+      "ungatedAdPixelVendors": {
+        "type": "array",
+        "description": "Ad-tech pixels loading eagerly without prior-consent script gating."
+      },
+      "vppaRiskFound": {
+        "type": "boolean",
+        "description": "Whether embedded video players co-exist with ungated ad-tech identity pixels without standalone VPPA consent."
+      },
+      "vppaVideoPixelCheck": {
+        "type": "object",
+        "description": "Detailed VPPA 18 U.S.C. § 2710 embedded video + ad-pixel co-presence analysis."
+      },
+      "sensitiveIntakeFormFound": {
+        "type": "boolean",
+        "description": "Whether a healthcare, wellness, appointment, or patient intake form was detected."
+      },
+      "sensitiveFormPixelLeakFound": {
+        "type": "boolean",
+        "description": "Whether ungated ad pixels or session-replay scripts fire directly on a healthcare/sensitive intake form page."
+      },
+      "sensitiveFormPixelCheck": {
+        "type": "object",
+        "description": "Detailed HIPAA 45 CFR § 164.502(e) / WA MHMDA / FTC Health Breach sensitive intake form tracker analysis."
+      },
+      "gpcWellKnownFound": {
+        "type": "boolean",
+        "description": "Whether /.well-known/gpc.json returned HTTP 200 valid JSON."
+      },
+      "gpcSupportDeclared": {
+        "type": "boolean",
+        "description": "Whether /.well-known/gpc.json explicitly declares {\"gpc\": true}."
+      },
+      "ccpaPrivacyChoicesLinkFound": {
+        "type": "boolean",
+        "description": "Whether a \"Your Privacy Choices\" or \"Do Not Sell or Share My Personal Information\" opt-out link/control was found."
+      },
+      "gpcOrOptOutRiskFound": {
+        "type": "boolean",
+        "description": "Whether active ad-tech trackers lack a CCPA opt-out link or GPC compliance declaration."
+      },
+      "gpcAndOptOutCheck": {
+        "type": "object",
+        "description": "Detailed CCPA/CPRA /.well-known/gpc.json and \"Your Privacy Choices\" opt-out analysis."
+      },
+      "privacyPolicyUrl": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Discovered Privacy Policy / Privacy Notice URL."
+      },
+      "intakeOrBookingUrl": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Discovered Appointment / Booking / Patient Intake subpage URL."
+      },
+      "videoPageUrl": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Discovered Videos / Watch / Webinar / Demo subpage URL."
+      },
+      "optOutUrl": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Discovered Your Privacy Choices / Do Not Sell or Share opt-out URL."
+      },
+      "discoveredLinks": {
+        "type": "object",
+        "description": "Structured privacy, booking/intake, video, opt-out, and contact URLs discovered on the site."
+      },
+      "findingsCount": {
+        "type": "integer",
+        "description": "Total number of compliance findings flagged."
+      },
+      "findings": {
+        "type": "array",
+        "description": "Prioritized technical compliance findings with ruleId, regulation, severity, evidence, and recommendation."
+      },
+      "coldOutreachHook": {
+        "type": "string",
+        "description": "Neutral, factual 1-2 sentence B2B outreach observation tailored for Privacy/CMP, Healthcare Marketing, and E-Commerce agencies."
+      },
+      "remediationPackGenerated": {
+        "type": "boolean",
+        "description": "Whether a CIPA/VPPA/GPC HTML/JS consent-gate + pre-chat disclosure remediation pack was generated."
+      },
+      "remediationPack": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "description": "Copy-pasteable Prior-Consent Script Gate Wrapper, Pre-Chat CIPA Disclosure Widget, /.well-known/gpc.json, and CCPA \"Your Privacy Choices\" HTML/JS snippets."
+      },
+      "recommendedNextActors": {
+        "type": "array",
+        "description": "Recommended follow-up Apify Actors (WCAG/ADA Visual Auditor, EU Withdrawal/Omnibus Auditor, and US Click-to-Cancel Auditor)."
+      },
+      "disclaimer": {
+        "type": "string",
+        "description": "Mandatory technical heuristic & non-legal-advice disclaimer."
+      }
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "CIPA Wiretap, VPPA Video Pixel, HIPAA Intake & GPC Overview",
+      "transformation": {
+        "fields": [
+          "url",
+          "siteVertical",
+          "detectedCmp",
+          "complianceScore",
+          "riskTier",
+          "ungatedSessionReplayVendors",
+          "ungatedChatWidgetVendors",
+          "vppaRiskFound",
+          "sensitiveFormPixelLeakFound",
+          "gpcSupportDeclared",
+          "coldOutreachHook",
+          "status"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "Site URL",
+            "format": "link"
+          },
+          "siteVertical": {
+            "label": "Vertical",
+            "format": "text"
+          },
+          "detectedCmp": {
+            "label": "Detected CMP",
+            "format": "text"
+          },
+          "complianceScore": {
+            "label": "Compliance Score (0-100)",
+            "format": "number"
+          },
+          "riskTier": {
+            "label": "Risk Tier",
+            "format": "text"
+          },
+          "ungatedSessionReplayVendors": {
+            "label": "Ungated Session Replay",
+            "format": "array"
+          },
+          "ungatedChatWidgetVendors": {
+            "label": "Ungated Chat SDKs",
+            "format": "array"
+          },
+          "vppaRiskFound": {
+            "label": "VPPA Video+Pixel Risk",
+            "format": "boolean"
+          },
+          "sensitiveFormPixelLeakFound": {
+            "label": "HIPAA/MHMDA Form Leak",
+            "format": "boolean"
+          },
+          "gpcSupportDeclared": {
+            "label": "GPC Declared",
+            "format": "boolean"
+          },
+          "coldOutreachHook": {
+            "label": "Cold Outreach Hook",
+            "format": "text"
+          },
+          "status": {
+            "label": "Status",
+            "format": "text"
+          }
+        }
+      }
+    }
+  }
+}
